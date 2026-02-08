@@ -9,10 +9,9 @@ from PIL import Image
 import io
 import re
 from datetime import datetime
-
-# ---------- DATABASE SETUP ----------
 import os
 
+# ---------- DATABASE SETUP ----------
 DB_PATH = "data/sample_receipts/history.db"
 
 def init_db():
@@ -32,20 +31,29 @@ def init_db():
     conn.commit()
     conn.close()
 
-
 def save_to_db(filename, total, split_summary):
+    os.makedirs("data/sample_receipts", exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute("INSERT INTO receipts (filename, total, date, split_summary) VALUES (?, ?, ?, ?)",
-              (filename, total, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), split_summary))
+    c.execute("""
+        INSERT INTO receipts (filename, total, date, split_summary)
+        VALUES (?, ?, ?, ?)
+    """, (
+        filename,
+        total,
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        split_summary
+    ))
     conn.commit()
     conn.close()
 
 def get_history():
+    os.makedirs("data/sample_receipts", exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql_query("SELECT * FROM receipts", conn)
     conn.close()
     return df
+
 def delete_bill(bill_id):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
