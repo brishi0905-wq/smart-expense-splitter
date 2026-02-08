@@ -47,7 +47,7 @@ def get_history():
     conn.close()
     return df
 def delete_bill(bill_id):
-    conn = sqlite3.connect("data/sample_receipts/history.db")
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("DELETE FROM receipts WHERE id = ?", (bill_id,))
     conn.commit()
