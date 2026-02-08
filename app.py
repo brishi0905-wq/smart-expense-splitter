@@ -10,6 +10,10 @@ import io
 import re
 from datetime import datetime
 import os
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+
 DB_PATH = "data/sample_receipts/history.db"
 # ---------- DATABASE SETUP ----------
 
