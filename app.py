@@ -10,13 +10,11 @@ import io
 import re
 from datetime import datetime
 import os
-
-# ---------- DATABASE SETUP ----------
 DB_PATH = "data/sample_receipts/history.db"
+# ---------- DATABASE SETUP ----------
 
 def init_db():
     os.makedirs("data/sample_receipts", exist_ok=True)
-
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
@@ -32,7 +30,7 @@ def init_db():
     conn.close()
 
 def save_to_db(filename, total, split_summary):
-    os.makedirs("data/sample_receipts", exist_ok=True)
+    init_db()
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
@@ -48,7 +46,7 @@ def save_to_db(filename, total, split_summary):
     conn.close()
 
 def get_history():
-    os.makedirs("data/sample_receipts", exist_ok=True)
+    init_db()   
     conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql_query("SELECT * FROM receipts", conn)
     conn.close()
@@ -60,7 +58,6 @@ def delete_bill(bill_id):
     c.execute("DELETE FROM receipts WHERE id = ?", (bill_id,))
     conn.commit()
     conn.close()
-
 
 # ---------- OCR PROCESSING ----------
 def extract_text(image):
