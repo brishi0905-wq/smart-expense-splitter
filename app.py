@@ -11,8 +11,14 @@ import re
 from datetime import datetime
 
 # ---------- DATABASE SETUP ----------
+import os
+
+DB_PATH = "data/sample_receipts/history.db"
+
 def init_db():
-    conn = sqlite3.connect("data/sample_receipts/history.db")
+    os.makedirs("data/sample_receipts", exist_ok=True)
+
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
         CREATE TABLE IF NOT EXISTS receipts (
@@ -26,8 +32,9 @@ def init_db():
     conn.commit()
     conn.close()
 
+
 def save_to_db(filename, total, split_summary):
-    conn = sqlite3.connect("data/sample_receipts/history.db")
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("INSERT INTO receipts (filename, total, date, split_summary) VALUES (?, ?, ?, ?)",
               (filename, total, datetime.now().strftime("%Y-%m-%d %H:%M:%S"), split_summary))
@@ -35,7 +42,7 @@ def save_to_db(filename, total, split_summary):
     conn.close()
 
 def get_history():
-    conn = sqlite3.connect("data/sample_receipts/history.db")
+    conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql_query("SELECT * FROM receipts", conn)
     conn.close()
     return df
