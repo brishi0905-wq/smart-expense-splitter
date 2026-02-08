@@ -1,0 +1,7 @@
+streamlit
+pytesseract
+opencv-python
+pandas
+numpy
+pillow
+sqlalchemy   # only if using SQLite
