@@ -1,0 +1,30 @@
+# 💸 Smart Expense Splitter with OCR
+
+A Streamlit-based web application that scans bill/receipt images using OCR and splits expenses among friends automatically.
+
+---
+## 🚀 Features
+
+- Upload receipt images (PNG/JPG/JPEG)
+- OCR extraction using Tesseract + OpenCV
+- Automatic item & price detection
+- Equal expense splitting
+- History tracking with SQLite
+- Delete previous bills
+- Clean UI with Streamlit
+
+---
+
+## 🛠 Tech Stack
+
+- Python
+- Streamlit
+- OpenCV
+- PyTesseract
+- Pandas
+- SQLite
+
+---
+
+## 📂 Project Structure
+
