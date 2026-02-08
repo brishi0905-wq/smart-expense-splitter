@@ -25,5 +25,7 @@ A Streamlit-based web application that scans bill/receipt images using OCR and s
 - SQLite
 
 ---
+## 🚀 Live Demo
+https://smart-expense-splitter-po5cafbrezrvuuwts9kxb4.streamlit.app/
 
 
